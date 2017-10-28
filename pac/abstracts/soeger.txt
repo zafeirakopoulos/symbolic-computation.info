@@ -1,0 +1,1 @@
+Normaliz is a well-established computer program for rational cones and polytopes. Its main computation goals are Hilbert bases and Ehrhart series. It has interfaces to computer algebra systems (CoCoA, GAP, Macauly 2, Singular) and to polymake. We give an overview of the program and discuss recent extensions, in particular the new features of Normaliz 3.0.

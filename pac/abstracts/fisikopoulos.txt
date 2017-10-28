@@ -1,0 +1,12 @@
+
+We propose the first algorithm for enumerating all combinatorial types
+of 2-level (a.k.a. compressed) polytopes of a given dimension d, and
+provide complete experimental results for d<=6. Our approach is based
+on new findings on 2-level polytopes, also presented here. In
+particular, we introduce the notion of a simplicial core, which allows
+us to reduce the problem to the enumeration of the closed sets of a
+discrete closure operator, along with some convex hull computations
+and isomorphism tests.
+
+Joint work with: Adam Bohn, Yuri Faenza, Samuel Fiorini, Marco
+Macchia, Kanstantsin Pashkovich

@@ -1,0 +1,3 @@
+Normal lattice polytopes can be considered as the discrete analogue of compact convex sets. In algebraic geometry they represent projectively normal toric varieties, and in commutative algebra they correspond to standard graded normal monoid algebras. They provide an ideal testing ground for these areas, both theoretically and experimentally. 
+
+We give a survey of challenging solved and open problems on lattice polytopes and report on recent work with Joseph Gubeladze and Mateusz Michalek. The challening problems include unimodular covering and triangulation, the integral Caratheodory property and the normality of smooth polytopes. The recent work deals with the extendability of normal polytopes by elementary "jumps" and the existence of maximal normal polytopes.

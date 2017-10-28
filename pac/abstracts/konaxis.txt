@@ -1,0 +1,32 @@
+
+Based on the computation of the so called predicted polytope $Q$,
+containing the Newton polytope $P$ of the implicit equation,
+implicitization of a parametric hypersurface is reduced
+to computing the nullspace of a numeric interpolation matrix.
+Our approach predicts $Q$ by exploiting the sparseness of the
+given parametric equations and of the implicit polynomial,
+without being affected by the presence of any base points.
+
+We describe two approaches in constructing the interpolation matrix.
+The main method, given a superset of the monomials in the implicit polynomial,
+constructs the matrix by evaluating these monomials at points on the object.
+The second method uses the linear relations between the implicit and the parametric
+expressions of the normal to the curve or surface at any given point and
+works either with parameterized objects or with objects given by a
+point cloud along with normals at the points.
+The matrix dimension is not smaller than the main method, but the number of sample points
+required to construct it can be reduced up to one third.
+
+When the predicted polytope $Q$ contains $P$ as a Minkowski summand,
+we improve the efficiency of the method by employing Minkowski decomposition
+to detect the Minkowski summand of $Q$ relevant to implicitization.
+We design and implement in Sage a new, public domain, practical, potentially generalizable
+and worst-case optimal algorithm for Minkowski decomposition in 3D based on integer linear programming.
+
+Finally, we study how the interpolation matrix expresses the implicit equation as
+a matrix determinant, which is useful for certain operations such as ray shooting,
+and how it can be used to reduce some key geometric predicates on the hypersurface,
+namely membership and sidedness for given query points, to simple numerical operations on the matrix,
+without need to develop the implicit equation.
+
+This is joint work with I. Emiris, T. Kalinka, and Z. Zafeirakopoulos
