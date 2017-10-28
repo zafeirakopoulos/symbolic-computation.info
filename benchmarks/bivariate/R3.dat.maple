@@ -1,0 +1,289 @@
+    |\^/|     Maple 11 (IBM INTEL LINUX)
+._|\|   |/|_. Copyright (c) Maplesoft, a division of Waterloo Maple Inc. 2007
+ \  MAPLE  /  All rights reserved. Maple is a trademark of
+ <____ ____>  Waterloo Maple Inc.
+      |       Type ? for help.
+> restart:
+> LIBPATH:="/home/zaf/svn/thesis/code/testing/lib/SLV/":
+> read("/home/zaf/svn/thesis/code/October/Milne.mpl");
+Warning, `i` is implicitly declared local to procedure Milne:-per
+Warning, `time1` is implicitly declared local to procedure Milne:-solveMilne
+Warning, `time2` is implicitly declared local to procedure Milne:-solveMilne
+Warning, `time3` is implicitly declared local to procedure Milne:-solveMilne
+Warning, `time4` is implicitly declared local to procedure Milne:-solveMilne
+Warning, `time5` is implicitly declared local to procedure Milne:-solveMilne
+Warning, `M1` is implicitly declared local to procedure Milne:-subdiv2
+Warning, `M2` is implicitly declared local to procedure Milne:-subdiv2
+Warning, `M3` is implicitly declared local to procedure Milne:-subdiv2
+Warning, `M4` is implicitly declared local to procedure Milne:-subdiv2
+> read cat(LIBPATH, "PRS.mpl"):
+> read cat(LIBPATH, "system.mpl"):
+Warning, imaginary unit `I` used as a local variable in procedure MGCD
+Warning, INTERVALs is not a correctly formed package - option `package' is
+missing
+> h1:=x^3-3*x^2-3*x*y+6*x+y^3-3*y^2+6*y-5:
+> h2:=x+y-2:
+> tt1:=time();
+                                  tt1 := 0.240
+
+> sols:=Milne:-solveMilne(h1,h2,1);
+bytes used=4001796, alloc=2883056, time=0.34
+Warning, imaginary unit `I` used as a local variable in procedure MGCD
+Warning, INTERVALs is not a correctly formed package - option `package' is
+missing
+Warning, imaginary unit `I` used as a local variable in procedure MGCD
+Warning, INTERVALs is not a correctly formed package - option `package' is
+missing
+                                "In subdivision"
+
+                               "M1", [-1296, 216]
+
+                               "M2", [-1296, 216]
+
+                               "M3", [-729, -162]
+
+                              "M4", [-2304, -288]
+
+                                   "loops", 1
+
+         sols := [[[-3, 4, -3, 4]], 0.052, 0.216, 0.016, 0.200, 0.484]
+
+> milneroots1:=nops(op(1,sols));
+                                milneroots1 := 1
+
+> tt2:=time();
+                                  tt2 := 0.724
+
+> milnetime1:=op(6,sols);
+                              milnetime1 := 0.484
+
+> vftime1:=op(2,sols);
+                                vftime1 := 0.052
+
+> boxtime1:=op(3,sols);
+                               boxtime1 := 0.216
+
+> prstime1:=op(4,sols);
+                               prstime1 := 0.016
+
+> sdtime1:=op(5,sols);
+                                sdtime1 := 0.200
+
+> restart:
+> LIBPATH:="/home/zaf/svn/thesis/code/testing/lib/SLV/":
+bytes used=7170120, alloc=393144, time=0.73
+> read("/home/zaf/svn/thesis/code/October/Milne.mpl");
+Warning, `i` is implicitly declared local to procedure Milne:-per
+Warning, `time1` is implicitly declared local to procedure Milne:-solveMilne
+Warning, `time2` is implicitly declared local to procedure Milne:-solveMilne
+Warning, `time3` is implicitly declared local to procedure Milne:-solveMilne
+Warning, `time4` is implicitly declared local to procedure Milne:-solveMilne
+Warning, `time5` is implicitly declared local to procedure Milne:-solveMilne
+Warning, `M1` is implicitly declared local to procedure Milne:-subdiv2
+Warning, `M2` is implicitly declared local to procedure Milne:-subdiv2
+Warning, `M3` is implicitly declared local to procedure Milne:-subdiv2
+Warning, `M4` is implicitly declared local to procedure Milne:-subdiv2
+> read cat(LIBPATH, "PRS.mpl"):
+> read cat(LIBPATH, "system.mpl"):
+Warning, imaginary unit `I` used as a local variable in procedure MGCD
+Warning, INTERVALs is not a correctly formed package - option `package' is
+missing
+> h1:=x^3-3*x^2-3*x*y+6*x+y^3-3*y^2+6*y-5:
+> h2:=x+y-2:
+> tt1:=time();
+                                  tt1 := 0.952
+
+> sols:=Milne:-solveMilne(h1,h2,2);
+Warning, imaginary unit `I` used as a local variable in procedure MGCD
+Warning, INTERVALs is not a correctly formed package - option `package' is
+missing
+bytes used=11189752, alloc=3538296, time=1.17
+Warning, imaginary unit `I` used as a local variable in procedure MGCD
+Warning, INTERVALs is not a correctly formed package - option `package' is
+missing
+                                "In subdivision"
+
+                               "M1", [-1296, 216]
+
+                               "M2", [-1296, 216]
+
+                               "M3", [-729, -162]
+
+                              "M4", [-2304, -288]
+
+                                   "loops", 1
+
+         sols := [[[-3, 4, -3, 4]], 0.064, 0.216, 0.012, 0.200, 0.492]
+
+> milneroots2:=nops(op(1,sols));
+                                milneroots2 := 1
+
+> tt2:=time();
+                                  tt2 := 1.448
+
+> milnetime2:=op(6,sols);
+                              milnetime2 := 0.492
+
+> vftime2:=op(2,sols);
+                                vftime2 := 0.064
+
+> boxtime2:=op(3,sols);
+                               boxtime2 := 0.216
+
+> prstime2:=op(4,sols);
+                               prstime2 := 0.012
+
+> sdtime2:=op(5,sols);
+                                sdtime2 := 0.200
+
+> restart:
+> LIBPATH:="/home/zaf/svn/thesis/code/testing/lib/SLV/":
+bytes used=13556352, alloc=393144, time=1.46
+> read("/home/zaf/svn/thesis/code/October/Milne.mpl");
+Warning, `i` is implicitly declared local to procedure Milne:-per
+Warning, `time1` is implicitly declared local to procedure Milne:-solveMilne
+Warning, `time2` is implicitly declared local to procedure Milne:-solveMilne
+Warning, `time3` is implicitly declared local to procedure Milne:-solveMilne
+Warning, `time4` is implicitly declared local to procedure Milne:-solveMilne
+Warning, `time5` is implicitly declared local to procedure Milne:-solveMilne
+Warning, `M1` is implicitly declared local to procedure Milne:-subdiv2
+Warning, `M2` is implicitly declared local to procedure Milne:-subdiv2
+Warning, `M3` is implicitly declared local to procedure Milne:-subdiv2
+Warning, `M4` is implicitly declared local to procedure Milne:-subdiv2
+> read cat(LIBPATH, "PRS.mpl"):
+> read cat(LIBPATH, "system.mpl"):
+Warning, imaginary unit `I` used as a local variable in procedure MGCD
+Warning, INTERVALs is not a correctly formed package - option `package' is
+missing
+> h1:=x^3-3*x^2-3*x*y+6*x+y^3-3*y^2+6*y-5:
+> h2:=x+y-2:
+> tt1:=time();
+                                  tt1 := 1.688
+
+> sols:=Milne:-solveMilne(h1,h2,3);
+Warning, imaginary unit `I` used as a local variable in procedure MGCD
+Warning, INTERVALs is not a correctly formed package - option `package' is
+missing
+bytes used=17577332, alloc=3538296, time=1.92
+Warning, imaginary unit `I` used as a local variable in procedure MGCD
+Warning, INTERVALs is not a correctly formed package - option `package' is
+missing
+                                "In subdivision"
+
+                               "M1", [-1296, 216]
+
+                               "M2", [-1296, 216]
+
+                               "M3", [-729, -162]
+
+                              "M4", [-2304, -288]
+
+                                   "loops", 1
+
+         sols := [[[-3, 4, -3, 4]], 0.076, 0.220, 0.012, 0.200, 0.508]
+
+> milneroots3:=nops(op(1,sols));
+                                milneroots3 := 1
+
+> tt2:=time();
+                                  tt2 := 2.196
+
+> milnetime3:=op(6,sols);
+                              milnetime3 := 0.508
+
+> vftime3:=op(2,sols);
+                                vftime3 := 0.076
+
+> boxtime3:=op(3,sols);
+                               boxtime3 := 0.220
+
+> prstime3:=op(4,sols);
+                               prstime3 := 0.012
+
+> sdtime3:=op(5,sols);
+                                sdtime3 := 0.200
+
+> restart:
+> LIBPATH:="/home/zaf/svn/thesis/code/testing/lib/SLV/":
+bytes used=19968920, alloc=393144, time=2.20
+> read cat(LIBPATH, "PRS.mpl"):
+> read cat(LIBPATH, "system.mpl"):
+Warning, imaginary unit `I` used as a local variable in procedure MGCD
+Warning, INTERVALs is not a correctly formed package - option `package' is
+missing
+> h1:=x^3-3*x^2-3*x*y+6*x+y^3-3*y^2+6*y-5:
+> h2:=x+y-2:
+> tt1:=time();
+                                  tt1 := 2.420
+
+> gridroots:=nops(SLV:-solveGRID(h1,h2));
+                                 gridroots := 1
+
+> tt2:=time();
+                                  tt2 := 2.428
+
+> gridtime:=tt2-tt1;
+                               gridtime := 0.008
+
+> restart:
+> LIBPATH:="/home/zaf/svn/thesis/code/testing/lib/SLV/":
+bytes used=22708508, alloc=393144, time=2.44
+> read cat(LIBPATH, "PRS.mpl"):
+> read cat(LIBPATH, "system.mpl"):
+Warning, imaginary unit `I` used as a local variable in procedure MGCD
+Warning, INTERVALs is not a correctly formed package - option `package' is
+missing
+> h1:=x^3-3*x^2-3*x*y+6*x+y^3-3*y^2+6*y-5:
+> h2:=x+y-2:
+> tt1:=time();
+                                  tt1 := 2.656
+
+> grurroots:=nops(SLV:-solveGRUR(h1,h2));
+                                 grurroots := 1
+
+> tt2:=time();
+                                  tt2 := 2.664
+
+> grurtime:=tt2-tt1;
+                               grurtime := 0.008
+
+> restart:
+> LIBPATH:="/home/zaf/svn/thesis/code/testing/lib/SLV/":
+bytes used=25478308, alloc=393144, time=2.67
+> read cat(LIBPATH, "PRS.mpl"):
+> read cat(LIBPATH, "system.mpl"):
+Warning, imaginary unit `I` used as a local variable in procedure MGCD
+Warning, INTERVALs is not a correctly formed package - option `package' is
+missing
+> h1:=x^3-3*x^2-3*x*y+6*x+y^3-3*y^2+6*y-5:
+> h2:=x+y-2:
+> tt1:=time();
+                                  tt1 := 2.896
+
+> mrurroots:=nops(SLV:-solveMRUR(h1,h2));
+                                 mrurroots := 1
+
+> tt2:=time();
+                                  tt2 := 2.908
+
+> mrurtime:=tt2-tt1;
+                               mrurtime := 0.012
+
+> restart:
+> h1:=x^3-3*x^2-3*x*y+6*x+y^3-3*y^2+6*y-5:
+bytes used=28282720, alloc=393144, time=2.92
+> h2:=x+y-2:
+> tt1:=time();
+                                  tt1 := 2.920
+
+> isolroots:=nops(RootFinding[Isolate]({h1,h2},[x,y]));
+                                 isolroots := 1
+
+> tt2:=time();
+                                  tt2 := 2.964
+
+> isoltime:=tt2-tt1;
+                               isoltime := 0.044
+
+> quit
+bytes used=28781480, alloc=786288, time=2.97

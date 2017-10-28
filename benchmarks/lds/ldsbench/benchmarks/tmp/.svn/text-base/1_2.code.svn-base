@@ -1,0 +1,201 @@
+from sage.all import *
+
+
+# -*- coding: utf-8 -*-
+# checks if a vector is forward
+
+debug=false
+
+#import sys
+#oldstdout=sys.stdout
+#outfile ="tmp/"+str(2)+".out"
+#sys.stdout = open(outfile, 'w')
+
+def vector_is_forward(v):
+    for vi in v:
+        if vi != 0:
+            if vi > 0:
+                return 1
+            if vi < 0:
+                return 0
+    return 1
+
+# the function flip as given in the article
+# s is a sign
+# I is a 0-1 vector
+# V is a list of vectors
+# q is a vector
+def flip(C):
+    s,I,V,q = C
+    J = [ not vector_is_forward(v) for v in V ] # 1 = backward, 0 = forward
+    Jpm = [ -1 if Ji else 1 for Ji in J ] # -1 = backward, 1 = forward
+    _s = prod(Jpm) * s
+    _I = vector([ 1 if Ii != Ji else 0 for (Ii,Ji) in zip(I,J) ])
+    _V = [ Jpmi * v for (Jpmi,v) in zip(Jpm,V) ]
+    return _s, _I, _V, q
+
+# a vector v
+def prim_v(v):
+    return v*(1/abs(gcd(v)))
+    
+# the function prim as given in the article
+# a list of vectors V
+def prim(V):
+    return map(prim_v, V)
+    
+def eliminate_last_coordinate(C):
+    if debug:
+        print "in eliminate_last_coordinate"
+        print C
+    s,I,V,q = C
+    d = len(V)
+    lambd = len(V[0]) - 1 # note that we have to shift by 1 here because in Sage indicies start at zero
+    v = lambda j: q - q[lambd]/(V[j][lambd]) * V[j] ## which sign here??? abs on q[lambd]??
+    ghat = lambda i, j: (-1 if q[lambd]>=0 else 1)*V[j] if i == j else sgn(V[j][lambd]) * (V[j][lambd] * V[i] - V[i][lambd] * V[j]) # warning: check the first case if q_\lambd = 0
+    g = lambda i, j: ghat(i,j)[:-1] # this is Python for dropping the last coordinate
+    G = lambda j: [ g(i,j) for i in xrange(d) ]
+    def _I(j): # this is ugly. would like a one-liner for this
+        theI = copy(I)
+        theI[j] = 0
+        return theI
+    if q[lambd] < 0:
+        B = [ (s,_I(j),prim(G(j)),v(j)[:-1]) for j in xrange(d) if V[j][lambd] > 0 ]
+    else:
+        _V = prim( [w[:-1] for w in V] )
+        B = [ (s,_I(j),prim(G(j)),v(j)[:-1]) for j in xrange(d) if V[j][lambd] < 0 ] + [(s,I,_V,q[:-1])]
+    return [ flip(C) for C in B ]
+
+# a list of symbolic cones L
+# we *have* to parallelize this!
+def elim(L):
+    concat = lambda a,b: a+b
+    return reduce(concat, map(eliminate_last_coordinate, L))
+
+# computes f(f(...f(x))) where k is the number of fs
+# there *has* to be a better way to write this.
+def times(f,k,x):
+    tmp = x
+    for i in xrange(k):
+        tmp = f(tmp)
+    return tmp
+    
+# a matrix A
+# a vector b
+def symbolic_cones(A,b):
+    d = A.ncols()
+    m = A.nrows()
+    Id = identity_matrix(ZZ,d)
+    V = Id.stack(A)
+    q = vector( [0 for i in xrange(d)] + [-1 * bi for bi in b] )
+    return times(elim, m, [(1,vector(ZZ,d),V.columns(),q)]) # in contrast to the article, we represent V as a list not as a matrix
+    
+def fract(x,e):
+    if x.is_integral():
+        return e
+    else:
+        return x - floor(x)
+        
+def fract_v(v,I):
+    return vector([ fract(v[i], I[i]) for i in xrange(len(v))])
+    
+def enumerate_fund_par(C):
+    if debug: 
+        print "in enumerate_fund_par"
+        print C
+    s,I,V,q = C
+    d = len(V)
+    # note: in Sage the Smith form is UVW = S, whereas in the draft we use V=USW.
+    V = column_matrix(ZZ,V) # turn V from a list into a matrix over ZZ
+    S,Uinv,Winv = V.smith_form()
+    s = [S[i][i] for i in xrange(d)]
+    T = diagonal_matrix([1/s[i] for i in xrange(d)])
+    L = [ vector(v) for v in CartesianProduct( *[xrange(s[i]) for i in xrange(d)] ) ]
+    qhat = Uinv * q
+    result = [ V * fract_v( Winv*(S**(-1))*(v-qhat), I) + q for v in L ]
+    #if debug: print result
+    return result
+
+def enumerate_fund_pars(cones):
+    return [(C,enumerate_fund_par(C)) for C in cones]
+    
+def symbolic_cone_w_fund_par_2_generating_function(CF,sage=1, parent="symbolic"):
+    C,F = CF
+    s,I,V,q = C
+    d = len(V[0])
+    if parent=="symbolic":
+        var(["z"+str(i+1) for i in range(d)])       
+        num = sum([ prod([SR("z"+str(i))**t[i] for i in range(d)]) for t in F])
+        den = prod([ (1- prod([SR("z"+str(i))**c[i] for i in range(d)]) ) for c in V])
+        gf = s * num/den
+        return gf
+ 
+#    if sage:
+#        ring = PolynomialRing(QQ,["z"+str(i+1) for i in range(d)])
+#        num = sum([ prod([ring.gen(i)**t[i] for i in range(d)]) for t in F])
+#        den = prod([ (1- prod([ring.gen(i)**c[i] for i in range(d)]) ) for c in V])
+#        N = num(*(list(ring.gens())))
+#        D = den(*(list(ring.gens())))
+#        F = FractionField(ring)
+#        gf = s * F(N/D)
+#        return gf
+#    else: # return gf as string
+#        num = reduce(lambda a,b: a+"+"+b, [reduce(lambda a,b: a+"*"+b, [ "z%d**%d" % (i,t[i]) for i in range(d) ]) for t in F])
+#        den = reduce(lambda a,b: a+"*"+b, [ "(1-%s)" % monomial for monomial in [ reduce(lambda a,b: a+"*"+b, [ "z%d**%d" % (i,c[i]) for i in range(d)]) for c in V]])
+#        return ("(%d*(%s)/(%s))" % (s,num,den))
+
+import time
+    
+# the sage parameter determines whether the rational function representation is returned as a string or as a sage rational function    
+def solve(A,b,sage=1,benchmark=0,determinants=0):
+    A = matrix(ZZ,A)
+    b = vector(ZZ,b)
+    if benchmark:
+        time_start = time.time()
+        print "start"
+    scs = symbolic_cones(A,b)
+    if benchmark:
+        time_scones = time.time()
+        print "symbolic cones computation took %s" % (time_scones - time_start)
+        print "total number of symbolic cones is %d" % len(scs)
+    if determinants:
+        print "determinants"
+        for c in scs:
+            print determinant_of_symbolic_cone(c)
+    if debug: 
+        print "Symbolic Cones"
+        print "have %d cones in total" % len(scs)
+        for c in scs:
+            print c
+    scsfp = enumerate_fund_pars(scs)
+    if benchmark:
+        time_fps = time.time()
+        print "fund par enumeration took %s" % (time_fps - time_scones)
+    gfs = map(lambda c: symbolic_cone_w_fund_par_2_generating_function(c,sage), scsfp)
+    if benchmark:
+        time_genfun = time.time()
+        print "generating function computation took %s" % (time_genfun - time_fps)    
+    if sage:
+        gf = sum(gfs)
+    else:
+        gf = reduce(lambda a,b: a+"+"+b, gfs)
+    if benchmark:
+        time_summation = time.time()
+        print "summation took %s" % (time_summation - time_genfun)
+        print "total time taken %s" % (time_summation - time_start)
+    return gf, scs
+
+def determinant_of_symbolic_cone(C):
+    s,I,V,q = C
+    m = matrix(ZZ,V)
+    return m.det()
+    
+ 
+     
+
+ret=solve([[1,-2,4,-1,5]],[0],benchmark=1)
+
+ 
+print ret[0]
+print ret[1]
+
+

@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/ldsbench/!svn/ver/1/benchmarks/methods/1
+END
+post.tmpl
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/ldsbench/!svn/ver/1/benchmarks/methods/1/post.tmpl
+END
+pre.tmpl
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/ldsbench/!svn/ver/1/benchmarks/methods/1/pre.tmpl
+END
+execute.tmpl
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/ldsbench/!svn/ver/1/benchmarks/methods/1/execute.tmpl
+END

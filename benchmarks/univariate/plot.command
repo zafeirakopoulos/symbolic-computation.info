@@ -1,0 +1,9 @@
+set term postscript eps color; 
+ set output "graph.eps"; 
+set key outside left top; 
+ set ylabel "msec"; 
+ set yrange [0:50]; 
+ set xrange [0:50]; 
+ set title "Type: random Degree: 70 Bitsize: VAR"; 
+ set style line 1 lt -1; set style line 2 lt 1; set style line 3 lt 2; set style line 4 lt 3; set style line 5 lt 4; set style line 6 lt 5; set style line 7 lt 6; set style line 8 lt 9; set style line 9 lt 8; 
+ plot  "plot.data" using 2:3 title "ST" with linespoints ls 1 , "plot.data" using 2:4 title "SV" with linespoints ls 2 , "plot.data" using 2:5 title "SN" with linespoints ls 3 , "plot.data" using 2:6 title "CF" with linespoints ls 4 , "plot.data" using 2:7 title "NCFF" with linespoints ls 5 , "plot.data" using 2:8 title "NCF" with linespoints ls 6 , "plot.data" using 2:9 title "DSC" with linespoints ls 7 , "plot.data" using 2:10 title "BSDSC" with linespoints ls 8 , "plot.data" using 2:11 title "RS" with linespoints ls 9 ;

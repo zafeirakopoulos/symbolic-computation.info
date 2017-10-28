@@ -1,0 +1,5 @@
+ret=solve([[1,-2,4,-1,5]],[0],benchmark={{benchmark}})
+
+ 
+print ret[0]
+print ret[1]

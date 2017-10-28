@@ -1,0 +1,20 @@
+{
+    "basic":{
+                "methods":"methods",
+                "instances":"instances",
+                "datasets":"datasets",
+                "timeout":3
+            },
+    "methods":[
+                {
+                    "id":"1",
+                    "name":"Polyhedral Omega - Symbolic Expressions",
+                    "system":"sage",
+                    "system_call":"module load sage; sage -python",
+                    "parameters":{
+                                    "benchmark":"1"
+                                 }
+                }
+              ],
+    "instances":"basic"
+}
