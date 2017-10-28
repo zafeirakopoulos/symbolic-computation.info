@@ -1,0 +1,285 @@
+% Zafeirakis Zafeirakopoulos
+% zafeirakopoulos@gmail.com
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Identification    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{polyhedra}[2015/06/24 Polyhedra LaTeX package]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Required Packages  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\RequirePackage{tikz}
+\RequirePackage{keyval,ifthen}
+\RequirePackage{siunitx}
+\RequirePackage{xparse}
+\RequirePackage{xargs}
+\RequirePackage{etoolbox}
+\RequirePackage{pgffor}
+\RequirePackage{xcolor} % Why not xcolor?
+\RequirePackage{tikz-3dplot}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Tikz setup   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usetikzlibrary{shapes}
+\usetikzlibrary{patterns}
+\usetikzlibrary{matrix}
+\usetikzlibrary{arrows}
+\usetikzlibrary{shadows}
+\usetikzlibrary{mindmap,trees}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Color definition  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%  Beamer Colors  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{beamerFocusColor}{RGB}{150 150 150}
+\definecolor{beamerAlertColor}{RGB}{170 70 70}
+\definecolor{beamerEdgeColor}{RGB}{50 250 250}
+\definecolor{beamerRayColor}{RGB}{50 250 250}
+\definecolor{beamerVertexColor}{RGB}{50 150 250}
+\definecolor{beamerPolygonColor}{RGB}{150 150 150}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%  Paper Colors  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{paperFocusColor}{RGB}{150 150 150}
+\definecolor{paperAlertColor}{RGB}{170 70 70}
+\definecolor{paperEdgeColor}{RGB}{150 150 150}
+\definecolor{paperRayColor}{RGB}{50 250 250}
+\definecolor{paperVertexColor}{RGB}{50 150 250}
+\definecolor{paperPolygonColor}{RGB}{150 150 150}
+
+
+
+
+% \definecolor{textColor}{RGB}{240 240 240}
+% \definecolor{bgColor}{RGB}{0 0 0}
+% \definecolor{exampleFillCol}{RGB}{50 150 50}
+% \definecolor{alertFillCol}{RGB}{170 70 70}
+% \definecolor{greenFillCol}{RGB}{50 150 50}
+% \definecolor{redFillCol}{RGB}{150 50 50}
+% \definecolor{blueFillCol}{RGB}{50 50 150}
+% \definecolor{greenColor}{RGB}{50 200 50}
+% \definecolor{redColor}{RGB}{220 50 50}
+% \definecolor{blueColor}{RGB}{50 50 220}
+% \definecolor{pictureFillCol}{RGB}{50 50 50}
+% \definecolor{pictureDarkFillCol}{RGB}{50 50 50}
+% \definecolor{subtitleColor}{RGB}{200 200 50}
+% \definecolor{alertColor}{RGB}{240 50 50}
+% \definecolor{edgeColor}{RGB}{50 250 250}
+% \definecolor{rayColor}{RGB}{50 250 250}
+% \definecolor{vertexColor}{RGB}{50 150 250}
+% \definecolor{facetColor}{RGB}{150 150 150}
+% \definecolor{intersectionColor}{RGB}{250 10 10}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Default Options  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Default Environment %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\PolyhedraEnvironment}{paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Default Color Scheme  %%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\VertexColor}{paperVertexColor}
+\newcommand{\EdgeColor}{paperEdgeColor}
+\newcommand{\RayColor}{paperRayColor}
+\newcommand{\PolygonColor}{paperPolygonColor}
+\newcommand{\AlertColor}{paperAlertColor}
+\newcommand{\FocusColor}{paperFocusColor}
+% TODO: intersectionColor
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Default Sizes  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\PolyhedraDefaultHeight}{0.5\textheight}
+\newcommand{\PolyhedraDefaultWidth}{0.5\textwidth}
+\newcommand{\PolyhedraDefaultScale}{0.6}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Default Styles %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\tikzstyle{PolyhedraVertexStyle}[\VertexColor]=
+    [draw,circle,inner sep=2pt,fill=#1]
+
+\tikzstyle{PolyhedraEdgeStyle}[\EdgeColor]=
+    [color=#1, -]
+
+\tikzstyle{PolyhedraRayStyle}[\RayColor]=
+    [draw, color=#1,  ->]
+    
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Package Options  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%  Define the commands for beamer usage %%%%%%%%%%%%%%%%%%%%%
+\DeclareOption{beamer}{
+  \renewcommand{\PolyhedraEnvironment}{beamer}
+  \renewcommand{\PolyhedraDefaultHeight}{0.5\textheight}
+  \renewcommand{\PolyhedraDefaultWidth}{0.5\textwidth}
+  \renewcommand{\VertexColor}{beamerVertexColor}
+  \renewcommand{\EdgeColor}{beamerEdgeColor}
+  \renewcommand{\RayColor}{beamerRayColor}
+  \renewcommand{\PolygonColor}{beamerPolygonColor}
+  \renewcommand{\AlertColor}{beamerAlertColor}
+  \renewcommand{\FocusColor}{beamerFocusColor}
+
+  \PackageWarningNoLine{Polyhedra}{Beamer Color Scheme used}
+}
+
+\DeclareOption*{\PackageWarning{Polyhedra}{Unknown ‘\CurrentOption’}}
+\ProcessOptions\relax
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% Graphics Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\newcommandx*\axes[9][5=no,6=no,7=$x$,8=$y$,9=$z$]
+{
+    \coordinate (Origin)   at (0,0,0);
+    \coordinate (XAxisMin) at (-#1,0,0);
+    \coordinate (XAxisMax) at (#2,0,0);
+    \coordinate (YAxisMin) at (0,-#3,0);
+    \coordinate (YAxisMax) at (0,#4,0);
+    \ifthenelse{\equal{#5}{no}}
+    {}{
+      \coordinate (ZAxisMin) at (0,0,-#5);
+      \coordinate (ZAxisMax) at (0,0,#6);
+    }
+    \draw [thin, gray,-latex] (XAxisMin) -- (XAxisMax) ;% Draw x axis
+    \draw [thin, gray,-latex] (YAxisMin) -- (YAxisMax);% Draw y axis
+    \ifthenelse{\equal{#5}{no}}
+    {}{
+    \draw [thin, gray,-latex] (ZAxisMin) -- (ZAxisMax);% Draw z axis
+    }
+    \ifthenelse{\equal{#5}{no}}
+    {}{    
+      \coordinate (XLabel) at (#2+0.3,0,0);
+      \coordinate (YLabel) at (0,#4+0.3,0);
+      \coordinate (ZLabel) at (0,0,#6+0.3);
+      \node at (XLabel) {#7};
+      \node at (YLabel) {#8};
+      \node at (ZLabel) {\ifthenelse{\equal{#5}{no}}{}{#9}};   
+    }
+}
+
+\newcommand{\point}[2]{
+  \coordinate (#2) at #1;
+}
+
+%  \node [draw,circle,inner sep=1pt,fill=vertexColor,label={[anchor=#2]#3: #1}] 
+% at (#1) {};
+\newcommandx*\vertex[3][2=normal,3=]{
+  \ifthenelse{\equal{#2}{normal}}{ %default point
+    \node[PolyhedraVertexStyle={\VertexColor}] at (#1) {#3};
+  }{
+    \ifthenelse{\equal{#2}{focus}}{ %focus point
+      \node[PolyhedraVertexStyle={\FocusColor}] at (#1) {#3};
+    }{
+      \ifthenelse{\equal{#2}{alert}}{ %alert point
+        \node[PolyhedraVertexStyle={\AlertColor}] at (#1) {#3};
+      }{
+	\ifthenelse{\equal{#2}{empty}}{ %empty point. 
+	% Maybe consider transparency instead of white
+	  \node[PolyhedraVertexStyle={white}] at (#1) {#3};  
+	}{
+	  \node[PolyhedraVertexStyle={#2}] at (#1) {#3};
+	}  
+      }       
+    }
+  }
+}
+
+\newcommandx*\edge[5][3=,4=normal,5=1.3pt]{
+  \begin{scope}
+  \tikzset{PolyhedraEdgeStyle/.append style={line width=#5}} % NOT WORKING
+  \ifthenelse{\equal{#4}{normal}}{ %default edge
+    \draw[PolyhedraEdgeStyle={\EdgeColor}] (#1) -- (#2);
+  }{
+    \ifthenelse{\equal{#4}{focus}}{ %focus edge
+      \draw[PolyhedraEdgeStyle={\FocusColor}] (#1) -- (#2);
+    }{
+      \ifthenelse{\equa{#4}{alert}}{ %alert edge
+	\draw[PolyhedraEdgeStyle={\FocusColor}] (#1) -- (#2);
+      }{
+	\ifthenelse{\equal{#4}{dashed}}{ %dashed edge
+	  \begin{scope}
+	    \tikzset{PolyhedraEdgeStyle/.append style={dashed}}
+	    \draw[PolyhedraEdgeStyle={\EdgeColor}] (#1) -- (#2);
+	  \end{scope}  
+	}{
+	  \ifthenelse{\equal{#4}{dashedAlert}}{ %dashed alert edge
+	    \begin{scope}
+	      \tikzset{PolyhedraEdgeStyle/.append style={dashed}}
+	      \draw[PolyhedraEdgeStyle={\AlertColor}] (#1) -- (#2);
+	    \end{scope}
+	  }{
+	    \draw [PolyhedraEdgeStyle={#4}] (#1) -- (#2);
+	  }
+	}       
+      }       
+    }
+  }
+  \end{scope} 
+}
+
+\newcommandx*\ray[4][3=normal,4=1.3pt]{
+  \begin{scope}
+  \tikzset{PolyhedraRayStyle/.append style={line width=#4}}
+  \ifthenelse{\equal{#3}{normal}}{ %default edge
+    \draw[PolyhedraRayStyle={\RayColor}] (#1) -- (#2);
+  }{
+    \ifthenelse{\equal{#3}{focus}}{ %focus edge
+      \draw[PolyhedraRayStyle={\FocusColor}] (#1) -- (#2);
+    }{
+      \ifthenelse{\equal{#3}{alert}}{ %alert edge
+        \draw[PolyhedraRayStyle={\AlertColor}] (#1) -- (#2);
+      }{
+	\ifthenelse{\equal{#3}{dashed}}{ %dashed edge
+	  \begin{scope}
+	    \tikzset{PolyhedraRayStyle/.append style={dashed}}
+	    \draw[PolyhedraRayStyle={\RayColor}] (#1) -- (#2);
+	  \end{scope}  
+	}{
+	\ifthenelse{\equal{#3}{dashedAlert}}{ %dashed alert edge
+	  \begin{scope}
+	    \tikzset{PolyhedraRayStyle/.append style={dashed}}
+	    \draw[PolyhedraRayStyle={\AlertColor}] (#1) -- (#2);
+	  \end{scope}
+	}{
+	  \draw [PolyhedraRayStyle={#3}] (#1) -- (#2);
+	}   	}       
+      }       
+    }
+  }
+  \end{scope} 
+}
+
+
+\newcommand{\preparePoint}[1]{(#1)--}
+\newcommandx*\polygon[6][3=\PolygonColor,4=0.8, 5=\PolygonColor, 6=1.3pt]{
+\draw[color=#5,  line width=#6, fill=#3, opacity=#4] 
+\forcsvlist{\preparePoint}{#1}(#2);
+}
+
+
+
+\newenvironment{polyhedron}[3]
+{
+  \ifthenelse{\equal{#1}{3d}}
+  {
+   \tdplotsetmaincoords{#2}{#3}
+   \begin{tikzpicture}[scale=\PolyhedraDefaultScale,tdplot_main_coords]
+  }{
+    \begin{tikzpicture}[scale=\PolyhedraDefaultScale]
+  }
+}
+{
+   \end{tikzpicture}
+}
+

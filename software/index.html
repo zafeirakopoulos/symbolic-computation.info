@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+
+        <title>Software - Zafeirakis Zafeirakopoulos</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+ 
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+                <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+
+    </head>
+	
+    <body   >
+	
+		<!-- The menu -->
+		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+
+					<a class="navbar-brand" href="#">Software - Zafeirakis Zafeirakopoulos</a>
+				</div>
+				
+			</div>
+		</div>
+		
+
+		<div class="jumbotron" id="intro" >
+			<div class="container" >
+				<h2>This page is under construction</h2>
+			</div>
+		</div>	
+
+		<div class="jumbotron" id="latex" >
+			<div class="container" >
+				<h2>Latex packages</h2>	
+				<div id="latex_accordion" > </div>
+			</div>
+		</div>	
+		
+		<div class="jumbotron" id="java" >
+			<div class="container" >
+				<h2>Java</h2>	
+				<h3>This section is under construction</h3>
+				<div id="java_accordion" ></div>
+			</div>
+		</div>			
+		
+
+		<script type="text/javascript">
+		  $(function() {
+
+			$( "#latex_accordion" ).accordion({
+            		heightStyle: "content",
+         		autoHeight: false,
+			clearStyle: true,  
+			active: true,
+			collapsible: true			
+			});
+
+			$( "#java_accordion" ).accordion({
+            		heightStyle: "content",
+         		autoHeight: false,
+			clearStyle: true,  
+			active: true,
+			collapsible: true			
+			});
+		  });
+
+
+			function create_accordion(software_data,accordionid){
+
+						
+						for (i in software_data){
+
+							header=document.createElement("h3");
+							container=document.createElement("div");							
+
+							description=document.createElement("div");
+							image=document.createElement("div");
+							legend=document.createElement("div");
+
+							panel=document.createElement("table");
+							upperRow=document.createElement("tr");
+
+							language=document.createElement("tr");
+							programmingLanguage=document.createElement("tr");
+							download=document.createElement("tr");
+							run=document.createElement("tr");
+							manual=document.createElement("tr");
+							source=document.createElement("tr");
+							license=document.createElement("tr");
+							year=document.createElement("tr");
+
+							language.innerHTML="<td> Language </td><td>"+software_data[i].language +"</td>";
+							programmingLanguage.innerHTML="<td> Programming Language </td><td>"+software_data[i].programmingLanguage +"</td>";
+							download.innerHTML="<td> Download  </td><td><a href=\""+software_data[i].download +"\"> Download</a> </td>";
+							if (software_data[i].run){
+								run.innerHTML="<td> Run as applet </td><td><a href=\""+software_data[i].run +"\"> Download</a> </td>";
+							}
+							if (software_data[i].manual){
+								manual.innerHTML="<td> Manual </td><td><a href=\""+software_data[i].manual +"\"> Download</a> </td>";
+							}
+							if (software_data[i].source){
+								source.innerHTML="<td> Source </td><td><a href=\""+software_data[i].source +"\"> Download</a> </td>";
+							}
+							license.innerHTML="<td> License </td><td>"+software_data[i].license +"</td>";
+							year.innerHTML="<td> Year </td><td>"+software_data[i].year +"</td>";
+						
+							header.innerHTML= software_data[i].name;
+							image.innerHTML="<img width=50% src=\""+ software_data[i].image +"\" />"
+							description.innerHTML= software_data[i].description;
+							legend.innerHTML="dwedwedwe";
+							upperRow.innerHTML="<td>" + description.outerHTML + "</td>" 
+												+ "<td>" + image.outerHTML + "</td>";
+											
+ 							panel.appendChild(upperRow);
+							panel.appendChild(language);
+							panel.appendChild(programmingLanguage);
+							panel.appendChild(download);
+							panel.appendChild(run);
+							panel.appendChild(manual);
+							panel.appendChild(source);
+							panel.appendChild(license);
+							panel.appendChild(year);
+
+							container.appendChild(panel);
+ 							document.getElementById(accordionid).appendChild(header);
+							document.getElementById(accordionid).appendChild(container);
+							
+						}
+				}
+
+		var java_data=[
+								{
+									"name":"Groebner Bases",
+									"language": "Greek",
+									"programmingLanguage":"Java",
+									"description":"blah blah",
+									"image":"http://zafeirakopoulos.info/content/public/software/groebner/groebner.png",
+									"download":"http://zafeirakopoulos.info/content/public/software/groebner/groebner.jar",
+									"run":"",
+									"manual":"http://zafeirakopoulos.info/content/public/software/groebner/example.txt",
+									"source":"http://zafeirakopoulos.info/content/public/software/groebner/groebnerSource.zip",
+									"license":"GPL v3.0",
+									"year": "2004"
+								},
+								{
+									"name":"Cayley Tables",
+									"language": "Greek",
+									"programmingLanguage":"Java",
+									"description":"blah blah",
+									"image":"http://zafeirakopoulos.info/content/public/software/cayley/cayley.png",
+									"download":"http://zafeirakopoulos.info/content/public/software/cayley/cayley.jar",
+									"run":"http://zafeirakopoulos.info/content/public/software/cayley/cayapp.jar",
+									"manual":"",
+									"source":"",
+									"license":"GPL v3.0",
+									"year": "2005"
+								},
+								{
+									"name":"Hamming Codes",
+									"language": "Greek",
+									"programmingLanguage":"Java",
+									"description":"blah blah",
+									"image":"http://zafeirakopoulos.info/content/public/software/hamming/hamming.png",
+									"download":"http://zafeirakopoulos.info/content/public/software/hamming/codes.jar",
+									"run":"",
+									"manual":"",
+									"source":"",
+									"license":"GPL v3.0",
+									"year": "2006"
+								},
+								{
+									"name":"Polynomial Division",
+									"language": "Greek",
+									"programmingLanguage":"Java",
+									"description":"blah blah",
+									"image":"http://zafeirakopoulos.info/content/public/software/division/polydiv.png",
+									"download":"http://zafeirakopoulos.info/content/public/software/division/diairesi.jar",
+									"run":"http://zafeirakopoulos.info/content/public/software/division/polyonym.jar",
+									"manual":"",
+									"source":"",
+									"license":"GPL v3.0",
+									"year": "2006"
+								},								
+								{
+									"name":"Gaussian Elimination",
+									"language": "Greek",
+									"programmingLanguage":"Java",
+									"description":"blah blah",
+									"image":"http://zafeirakopoulos.info/content/public/software/gauss/gauss.png",
+									"download":"http://zafeirakopoulos.info/content/public/software/gauss/gauss.jar",
+									"run":"",
+									"manual":"",
+									"source":"http://zafeirakopoulos.info/content/public/software/gauss/gaussSource.jar",
+									"license":"GPL v3.0",
+									"year": "2006"
+								},	
+								{
+									"name":"Graph Theory",
+									"language": "Greek",
+									"programmingLanguage":"Java",
+									"description":"blah blah",
+									"image":"http://zafeirakopoulos.info/content/public/software/graphs/graphs.png",
+									"download":"http://zafeirakopoulos.info/content/public/software/graphs/GraphApp.jar",
+									"run":"http://zafeirakopoulos.info/content/public/software/graphs/GrApplet.jar",
+									"manual":"",
+									"source":"http://zafeirakopoulos.info/content/public/software/gauss/gaussSource.jar",
+									"license":"GPL v3.0",
+									"year": "2006"
+								},									
+								];
+
+
+		var latex_data=[
+								{
+									"name":"DIT thesis",
+									"language": "English",
+									"programmingLanguage":"Latex",
+									"description":"A Latex package to produce the format required by the Department of Informatics and Telecoms in the National Univeristy of Athens.",
+									"image":"",
+									"download":"http://software.zafeirakopoulos.info/content/diuoathesis/dithesis.cls",
+									"run":"",
+									"manual":"",
+									"source":"http://software.zafeirakopoulos.info/content/diuoathesis/dithesis.cls",
+									"license":"GPL v3.0",
+									"year": "2009"
+								},							
+								];			
+		  create_accordion(java_data,"java_accordion");
+		  create_accordion(latex_data,"latex_accordion");
+		</script>
+ 
+	
+     </body>
+</html>
