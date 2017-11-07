@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <title>MathData - TUBITAK 3001</title>
+
+
+        <script
+          src="https://code.jquery.com/jquery-3.2.1.min.js"
+          integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+          crossorigin="anonymous">
+        </script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cyborg/bootstrap.min.css">
+
+    </head>
+
+    <!-- <body style="width:80%;"  > -->
+
+    <body style="margin:2%;">
+		<!-- The menu -->
+		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#"> </a>
+				</div>
+				<div class="navbar-collapse collapse">
+				   <ul class="nav navbar-nav">
+					<li><a class="active" href="#">Home</a></li>
+					<li><a href="#workpackages">Workpackages</a></li>
+					<li><a href="#positions">Open Positions</a></li>
+          <li><a href="#description">Description</a></li>
+					<li><a href="#contact">Contact</a></li>
+				  </ul>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="jumbotron" id="home" >
+			<div>
+				<h2>MathData</h2>
+                <p>
+                    "MathData - A system for efficient representation of mathematical data and benchmarking of mathematical software and algorithms"
+                    is a TUBITAK funded project aiming to create a standard for representing mathmatical data and testing mathematical software.<br>
+            </p>
+
+            <p>
+                The duration of the project is 18 months and it started on October 2017.
+            </p>
+            <p style="color: red">
+                There are open positions in the project.
+                <a href="#positions">We are actively looking for research assistants.</a>
+            </p>
+			</div>
+		</div>
+
+
+        		<div class="jumbotron" id="workpackages" >
+        			<div>
+        				<h2>Workpackages</h2>
+                        <p>
+                            This is the list of workpackages and deliverables of MathData.
+                            For a more detailed description of the project check the <a href="#description">project description</a>.
+                            For more details please contact me at <a href="mailto::zafeirakopoulos@gtu.edu.tr">zafeirakopoulos{at}gtu.edu.tr</a>.
+                        </p>
+                        <ul>
+                            <li> WP1: MathDataLanguage <br>
+                              Design the specification language for the 5-fold representation of MathData. The language should incorporate different elements,
+                              satisfying the different aspects of the 5-fold representation. Moreover it should be concise (as small overhead as possible), porta-
+                              ble (programming language and operating system agnostic), field agnostic (can be used for classes of objects that are not part of
+                              the current plan), text based (allowing for version control tools to be used) . The deliverables are:
+                              <ul>
+                                <li>D.1.1: Blueprint of the specification language for the 5-fold representation (MathDataLanguage).</li>
+                                <li>D.1.2: Prototype implementation of the MathDataLanguage used to represent small existing MathData libraries.</li>
+                                <li>D.1.3: Benchmark the produced representations in terms of overhead, consistency, redundancy.</li>
+                              </ul>
+                            </li>
+
+                              <li>WP2: MathData Repository and Public Server  <br>
+                                The goal is to incorporate as many of the existing MathData libraries as possible. The size of the database is expected to be very
+                                large and possibly techniques from Big Data will be needed. After the incorporation of the MathData from the sources mentioned
+                                earlier, a publicly accessible server will be set up, making it the largest publicly available collection of mathematical data up to
+                                date. The following deliverables are part of this WP:
+                                  <ul>  <li>D.2.1: Implement a repository based on MathDataLanguage as described in the previous section.</li>
+                                    <li>D.2.2: Import in the repository existing MathData object libraries/databases.</li>
+                                    <li>D.2.3: Set up a publicly accessible server and promote it in the community.</li>
+                                </ul>
+                              </li>
+
+
+                          <li>  WP3: Benchmark DescriptionLanguage - BDL <br>
+                            The goal of WP3 is to create a language (BDL) that will allow to describe benchmarks in a way that is not area specific, it is reus-
+                            able and makes the benchmarks reproducible. It will build on top of WP1, using both the experience gained and the MathData-
+                            Language itself. The ultimate goal is to develop a standard and easy to learn language in order to allow researchers without com-
+                            puter science expertise to easily design, execute and share their benchmarks. This will require to describe input data (using Math-
+                            DataLanguage), datasets (logical groups of data), metrics, hardware and software platforms and features of both the input and
+                            output data. Also, it is necessary to have a simple way to explain how a particular software will take data as input and how to inter-
+                            pret its output. The following deliverables are part of WP3:
+                            <ul> <li>D.3.1: Computational Platform Description Language</li>
+                            <li>D.3.2: Task, Input, Output, Dataset, Feature, Metric description language.</li>
+                          <li>  D.3.3: Design benchmarks based on BDL for large datasets.</li>
+                          </ul>
+                        </li>
+                            <li>WP4: Benchmark System <br>
+                            Using the Benchmark Description Language (BDL), design a software system that fully automates the execution of benchmarks
+                            given a benchmark definition in BDL and the corresponding data in MathDataLanguage. Aspects of the system that are of great
+                            importance are robustness and user-friendliness. It is important that non-experts can use the system with minimal effort. Also, it is
+                            important that researchers can share their results. Given that the MathDataLanguage and the Benchmark Description Language
+                            are both designed for robust sharing of objects, it will be possible to share the results, as well as the data to reproduce the results.
+                            This functionality will be offered via a publicly accessible server. The following deliverables break down these tasks:
+                            <ul>
+                              <li>D.4.1: Implementation of the Benchmark Description Language into a Benchmarking System</li>
+                            <li>D.4.2: Case Study for testing the Benchmarking System: Univariate Polynomial Solving</li>
+                            <li>D.4.3: A public server allowing the sharing of benchmarks between researchers.</li>
+                          </ul>
+                        </li>
+                            <li>WP5: API + interfaces to Mathematical Software <br>
+                            The MathDataLibrary will be accessible via the public server of WP2. Nevertheless, it is important that the database offers inter-
+                            faces to popular mathematical software. Especially, to the widely used computer algebra system Sage. Apart from that, a Python
+                            interface should be provided so that easy prototyping/scripting using data from the MathDataLibrary will be facilitated. Finally, a
+                            standard used by various computer algebra system is OpenMath. A number of EU H2020 funded projects, such as Open-
+                            DreamKit, are supporting the effort of making OpenMath a standard for the communication between computer algebra systems
+                            and it is only natural that a MathDataLibrary should contribute in this effort. The following three deliverables reflect the interfaces
+                            to be developed:
+                            <ul>
+                              <li>D.5.1: Python interface</li>
+                            <li>D.5.2: Sage Interface</li>
+                            <li>D.5.3: OpenMath Interface</li>
+                          </ul>
+                        </li>
+                        </ul>
+
+        			</div>
+        		</div>
+
+        		<div class="jumbotron" id="positions" >
+        			<div>
+        				<h2>Open Positions</h2>
+                        <p>
+                            There are open positions for research assistants in the frame of MathData for
+                        </p>
+
+                            <ul>
+                            <li><p>Master's students</p></li>
+                            <li><p>Part-time Master's students</p></li>
+                            <li><p>Undergraduate students</p></li>
+            				</ul>
+                    <p>
+                        Interested students should contact me by email at <a href="mailto::zafeirakopoulos@gtu.edu.tr">zafeirakopoulos{at}gtu.edu.tr</a>.
+                        Please send your CV, transcript and a short paragraph explaining why you are interested in the project.
+            			</p>
+        			</div>
+        		</div>
+
+		<div class="jumbotron" id="description" >
+			<div>
+				<h2>Project Description</h2>
+	            <p>
+                The scientific community produces constantly data that is used for various purposes. Most of this data is discarded after used for a
+particular purpose and produced from scratch next time it is needed. This phenomenon is even more common in the math
+community. Mathematical software treats data as a byproduct and only rarely as a first class citizen in the world of mathematical
+research. Nevertheless, modern mathematics research involves large amount of data, experimental or in the form of using well
+defined mathematical structures. In recent years, especially through the work of the Big Data community, the importance of data in
+research has been highlighted. Nevertheless, although the Big Data community developed an excellent toolbox for scalar/numerical
+data, there is no similar toolbox for graphs, polynomials and structured mathematical data in general. This lack of appropriate tools
+hinders research in mathematics, but also impedes the use of state-of-the-art mathematics by industry. In short, each time we need
+to use some data, we reinvent the wheel. It is of great importance to be able to efficiently store, reuse and share mathematical data,
+as well as analyze it in modern ways. On the other hand, the lack of an easy and general enough way of performing benchmarks of
+mathematical software, leads to the ad hoc development of benchmarking tools to be used only once by only one research team. The
+benchmarks are not reproducible and in general not usable by other researchers. Except for the waste of resources in academia, this
+is a very big obstacle for industry to adopt new methods, since the cost of evaluating them is too high.
+In recent years, a lot of effort has been put by the Mathematical Knowledge Management (MKM) community concerning the
+representation of mathematics. Unfortunately, the data of the MKM systems is mathematical theories, i.e., axioms, definitions and
+theorems. Thus we cannot directly use the tools developed in order to treat mathematical data (MathData). At the same time, the
+need for reproducible research is constantly growing. From journals to courses, one can observe the recent increase in the interest
+on reproducible research. A number of web services offering to store datasets are available, but they focus mostly on scalar data.
+Other efforts, such as SymbolicData, try to cover more general mathematical data, but has a steep learning curve. SymbolicData did
+not develop a sufficient user base yet, probably because of its lack of a user friendly interface. Nevertheless, despite the lack of the
+right tools, there are various projects intended to produce databases of mathematical objects. The efforts are fragmented and each
+project adopts different policies and representation principles. The lack of a uniform way to represent, exchange and store data in a
+robust way hinders the usability of those databases. At the same time, the benchmarking system of SymbolicData is the most
+advanced general purpose benchmarking system, but due to the problems mentioned above, it is not widely used. Part of the need
+for the present project lies exactly in the surprisingly bad shape the state-of-the-art solutions are, for such an important problem.
+This project is about developing a standard representation for storing and sharing MathData, in the form of the description language
+MathDataLanguage. By providing a unified and publicly accessible MathDataLibrary, we expect that the communities of both
+mathematicians and computer scientists will embrace the new standard and take advantage of it. Building on this new data
+representation, we develop a fully automated system for performing benchmarks, called BenchIT. The benchmarks are shareable,
+reusable and reproducible, because they are expressed in a descriptive language that is independent of the scientific area, the
+hardware platform or the software used. This way, BenchIT can reproduce all the tasks necessary in any given environment fully
+automatically. This breaks the barrier that for many scientists, who are not familiar with computer science, prevents them from
+performing benchmarks and sharing their experimental results. Following the paradigm of web platforms for sharing hardware
+benchmarks, we provide a web platform for sharing software benchmarks. Such a platform would be useful for industrial users who
+wish to evaluate new software solutions without the overhead cost of performing a resource consuming evaluation of the available
+solutions. The approach we take is to design the data description language covering the 5-fold representation (see section 4) and a
+related repository structure to store MathData. We use existing standard tools such as git, in order to version control the data in an
+advanced way to avoid redundancy and respect the mathematical context and features of the data.
+The goal of this project is to bring mathematical research to the 21st century. Its importance lies on widening the community of
+researchers that will be able to share their MathData and run benchmarks on them. This project proposes an easy way for academic
+and industrial researchers to share their MathData with the rest of the community. This addresses the recently emerging request for
+reproducible research on one hand and help the community save resources on the other. Resources that are till now wasted in the
+reproduction of the same data, due to lack of collaboration and of a centrally and easily searchable and accessible repository. The
+expected impact in the communities of Symbolic Computation, Combinatorics and Algorithmic Mathematics in general is very big,
+starting a new way of collaboration potentially leading to groundbreaking results that cannot be achieved without the proposed
+collaboration tools. The final long term aim is to create a community of users of the MathDataLanguage. Using tools from Big Data
+and Deep Learning is very promising, but currently impossible for most areas of mathematics. Adopting a way to represent MathData,
+store, share and reuse them will help mathematical research, but more importantly from a socio-economic perspective, it will boost
+the collaboration of academic math research with industry and make it easier for industry to fully exploit the advances in MathData
+research.
+                </p>
+			</div>
+		</div>
+
+		<div class="jumbotron" id="contact" >
+			<div>
+                <h4>Principal Investigator</h4>
+                    Zafeirakis Zafeirakopoulos
+				<h4>Address</h4>
+                    Gebze Technical University Computer Engineering Building <br>
+                    Gebze – Kocaeli – Turkey <br>
+                    ZIP Code : 41400
+                <h4>Office</h4>
+                    Office	Block A2, 216 <br>
+                <h4>Phone</h4>
+                    0090 (262) 605 24 12
+                <h4>Email</h4>
+                    <a href="mailto::zafeirakopoulos@gtu.edu.tr">zafeirakopoulos {at} gtu.edu.tr</a>
+			</div>
+		</div>
+
+     </body>
+</html>
