@@ -41,3 +41,18 @@ p.cta-text {
 a:hover{
     text-decoration:none;
 }
+
+.googleCalendar{
+  position: relative;
+  height: 0;
+  width: 100%;
+  padding-bottom: 50%;
+}
+
+.googleCalendar iframe{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
